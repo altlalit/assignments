@@ -13,31 +13,33 @@
   Output - [{ category: 'Food', totalSpent: 10 }] // Can have multiple categories, only one example is mentioned here
 */
 
-function calculateTotalSpentByCategory(transactions) {
+function calculateTotalSpentByCategory(transactions){
+  const result = [];
+  const len = transactions.length;
+  for(let i=0;i<len;i++){
+      let a = transactions[i].category;
+      result.push(a);
+  }
+  let res = [...new Set(result)];
+  
+  let ans = [];
+  for(let i=0;i<res.length;i++){
+      const obj = {};
+      obj["category"] = res[i];
+      obj["totalSpent"] = 0;
+      ans.push(obj);
+  }
+  for(let i=0;i<len;i++){
+      for(let j=0;j<ans.length;j++){
+          if(transactions[i].category==ans[j].category){
+              // console.log(ans[j].totalSpent);
+              // console.log(transactions[i].price);
 
-  const categoryTotals = {};
-
-  // Iterate through each transaction
-  transactions.forEach(transaction => {
-    const { category, price } = transaction;
-
-    // Check if the category exists in the categoryTotals object
-    if (categoryTotals.hasOwnProperty(category)) {
-      // If it exists, add the price to the existing total
-      categoryTotals[category] += price;
-    } else {
-      // If it doesn't exist, create a new entry with the current price
-      categoryTotals[category] = price;
-    }
-  });
-
-  // Convert the categoryTotals object into an array of objects
-  const result = Object.keys(categoryTotals).map(category => ({
-    category: category,
-    totalSpent: categoryTotals[category]
-  }));
-
-  return result;
+              ans[j].totalSpent += transactions[i].price;
+          }
+      }
+  }
+  return ans;
 }
 
 module.exports = calculateTotalSpentByCategory;
