@@ -9,5 +9,19 @@ There is no automated test for this one, this is more for you to understand time
 */
 
 function calculateTime(n) {
-    return 0.01;
+    const currentDate = new Date();
+    const beforeTime = currentDate.getSeconds();
+    console.log(beforeTime);
+    sum=0;
+    for(let i=0;i<n;i++){
+        sum += i;
+    }
+    const afterTime = currentDate.getSeconds();
+    console.log(afterTime);
+    const diff = beforeTime-afterTime;
+    return diff;
 }
+
+console.log(calculateTime(100000));
+
+
